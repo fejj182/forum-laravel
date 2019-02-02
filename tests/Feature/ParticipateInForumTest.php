@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\DBTestCase;
 
-class ParticipateInForum extends TestCase
+class ParticipateInForum extends DBTestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function an_unauthenticated_user_may_not_participate_in_forum_threads()
     {
@@ -20,11 +17,11 @@ class ParticipateInForum extends TestCase
     /** @test */
     public function an_authenticated_user_may_participate_in_forum_threads()
     {
-        parent::signIn($user = factory('App\User')->create());
+        parent::signIn();
 
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
-        $reply = factory('App\Reply')->make();
+        $reply = make('App\Reply');
         $this->post($thread->path().'/replies', $reply->toArray());
 
         $this->get($thread->path())
