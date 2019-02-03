@@ -9,9 +9,8 @@ class ParticipateInForum extends DBTestCase
     /** @test */
     public function an_unauthenticated_user_may_not_participate_in_forum_threads()
     {
-        $this->withoutExceptionHandling()
-            ->expectException('Illuminate\Auth\AuthenticationException');
-        $this->post('threads/1/replies', []);
+        $this->post('threads/channel/1/replies', []) //TODO: get rid of this hard coding
+            ->assertRedirect('/login');
     }
 
 
