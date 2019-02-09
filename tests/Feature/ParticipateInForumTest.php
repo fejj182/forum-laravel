@@ -29,4 +29,18 @@ class ParticipateInForum extends DBTestCase
         $this->get($thread->path())
             ->assertSee($reply->body);
     }
+
+    /** @test */
+    public function a_reply_has_a_body()
+    {
+        parent::signIn();
+
+        $thread = create('App\Thread');
+        $reply = make('App\Reply', ['body' => null]);
+
+        $this->post(
+            route('replies.store', ['channel' => $thread->channel, 'thread' => $thread->id]), $reply->toArray()
+        )->assertSessionHasErrors('body');
+    }
+
 }
