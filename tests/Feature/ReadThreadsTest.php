@@ -15,7 +15,7 @@ class ThreadsTest extends DBTestCase
     /** @test */
     public function a_user_can_view_all_threads()
     {
-        $this->get('/threads')
+        $this->get(route('threads.index'))
             ->assertSee($this->thread->title);
     }
 

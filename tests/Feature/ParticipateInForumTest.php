@@ -9,7 +9,7 @@ class ParticipateInForum extends DBTestCase
     /** @test */
     public function an_unauthenticated_user_may_not_participate_in_forum_threads()
     {
-        $this->post('threads/channel/1/replies', []) //TODO: get rid of this hard coding
+        $this->post(route('replies.store', ['channel' => 'admin', 'thread' => 1]), [])
             ->assertRedirect('/login');
     }
 
@@ -20,9 +20,11 @@ class ParticipateInForum extends DBTestCase
         parent::signIn();
 
         $thread = create('App\Thread');
-
         $reply = make('App\Reply');
-        $this->post($thread->path().'/replies', $reply->toArray());
+
+        $this->post(
+            route('replies.store', ['channel' => $thread->channel, 'thread' => $thread->id]), $reply->toArray()
+        );
 
         $this->get($thread->path())
             ->assertSee($reply->body);

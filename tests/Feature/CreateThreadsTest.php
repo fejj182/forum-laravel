@@ -10,10 +10,10 @@ class CreateThreadsTest extends DBTestCase
     /** @test */
     public function guests_may_not_create_threads()
     {
-        $this->post('/threads')
+        $this->post(route('threads.store'))
             ->assertRedirect('/login');
 
-        $this->get('/threads/create')
+        $this->get(route('threads.create'))
             ->assertRedirect('/login');
     }
 
@@ -23,7 +23,7 @@ class CreateThreadsTest extends DBTestCase
         $this->signIn();
 
         $thread = make('App\Thread');
-        $this->post('/threads', $thread->toArray());
+        $this->post(route('threads.store'), $thread->toArray());
 
         $createdThread = Thread::latest()->first();
 

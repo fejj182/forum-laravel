@@ -52,7 +52,7 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Channel $channelId   
+     * @param \App\Channel $channelId
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */

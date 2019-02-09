@@ -10,7 +10,7 @@ class Thread extends Model
 
     public function path()
     {
-        return "/threads/{$this->channel->slug}/{$this->id}";
+        return route('thread.show', ['channel' => $this->channel->slug, 'thread' => $this->id]);
     }
 
     public function replies()
