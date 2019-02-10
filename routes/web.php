@@ -18,9 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('threads', 'ThreadController');
 Route::get('/threads/{channel}/{thread}', [
     'as' => 'thread.show',
     'uses' => 'ThreadController@show',
 ]);
-Route::resource('threads', 'ThreadController');
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->name('replies.store');
+
+Route::resource('channels', 'ChannelController');
+

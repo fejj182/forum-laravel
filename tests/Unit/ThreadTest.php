@@ -2,13 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use Tests\DBTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ThreadTest extends TestCase
+class ThreadTest extends DBTestCase
 {
-    use DatabaseMigrations;
-
     public function setUp()
     {
         parent::setUp();
@@ -37,7 +35,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function it_can_add_a_reply()
     {
-        $reply = factory('App\Reply')->create();
+        $reply = create('App\Reply');
         $this->thread->addReply([
             'body' => $reply->body,
             'user_id' => $reply->user_id
