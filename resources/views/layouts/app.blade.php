@@ -45,7 +45,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {{-- TODO: Remove query from template --}}
-                                @foreach (App\Channel::all() as $channel)
+                                @foreach ($channels as $channel)
                                     <a class="dropdown-item" href={{$channel->path()}}>{{$channel->name}}</a>
                                 @endforeach
                             </div>
