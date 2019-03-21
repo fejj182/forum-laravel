@@ -17,7 +17,7 @@ class ParticipateInForum extends DBTestCase
     /** @test */
     public function an_authenticated_user_may_participate_in_forum_threads()
     {
-        parent::signIn();
+        $this->signIn();
 
         $thread = create('App\Thread');
         $reply = make('App\Reply');
@@ -33,7 +33,7 @@ class ParticipateInForum extends DBTestCase
     /** @test */
     public function a_reply_has_a_body()
     {
-        parent::signIn();
+        $this->signIn();
 
         $thread = create('App\Thread');
         $reply = make('App\Reply', ['body' => null]);

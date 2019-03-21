@@ -47,4 +47,29 @@ class ThreadsTest extends DBTestCase
                 ->assertDontSee($threadNotInChannel->title);
     }
 
+    /** @test */
+    public function a_user_can_filter_threads_by_username()
+    {
+        $this->signIn(create('App\User', ['name' => 'JohnDoe']));
+
+        $channel = create('App\Channel');
+        $otherThread = create('App\User');
+
+        $threadByJohn = create('App\Thread',
+            [
+                'channel_id' => $channel->id,
+                'user_id' => auth()->id()
+            ]
+        );
+        $otherThread =create('App\Thread',
+            [
+                'channel_id' => $channel->id,
+            ]
+        );
+
+        $this->get(route('threads.index', ['by' => $threadByJohn->creator->name]))
+                ->assertSee($threadByJohn->title)
+                ->assertDontSee($otherThread->title);
+    }
+
 }
